@@ -3,57 +3,60 @@
 
 #include "stackconfig.h"
 #include "stack.h"
+void init(Stack* stack) {
+    stack->top = -1;
+}
+void push(Stack* stack, stackType input) {
 
-void push(Stack* stack, stackType data) {
-    Node* newNode = malloc(sizeof(Node));
-    if(newNode == NULL) {
-        printf("Stack overflow while push()");
-        return;
+    if (isFull(stack)) {
+        {
+            printf("Stack overflow while push()");
+            return;
+        }
+        stack->top = stack->top + 1;
+        stack->data[stack->top] = input;
+
+        //newNode->data = data;
+        //newNode->next = stack->top;
+        //stack->top = newNode;
     }
-    newNode->data = data;
-    newNode->next = stack->top;
-    stack->top = newNode;
 }
-
-stackType pop(Stack* stack) {
-    if(stack->top == NULL) {
-        printf("Stack underflow while pop\n");
-        return -1;
+    stackType pop(Stack * stack) {
+        if (isEmpty(stack)) {
+            printf("Stack underflow while pop\n");
+            return -1;
+        }
+        stackType a = stack->data[stack->top];
+        stack->top = stack->top - 1;
+        return a;
     }
-    Node* next = stack->top->next;
-    stackType data = stack->top->data;
-    free(stack->top);
-    stack->top = next;
-    return data;
-}
 
-stackType peek(Stack* stack) {
-    if(stack->top == NULL) {
-        printf("Stack underflow while pop\n");
-        return -1;
+    stackType peek(Stack * stack) {
+        if (isEmpty(stack)) {
+            printf("Stack underflow while pop\n");
+            return -1;
+        }
+        stackType a = stack->data[stack->top];
+        return a;
     }
-    stackType data = stack->top->data;
-    return data;
-}
 
-int isEmpty(Stack* stack) {
-    return stack->top == NULL;
-}
-
-int isFull(Stack* stack) {
-    Node* newNode = malloc(sizeof(Node));
-    if(newNode == NULL) {
-        return 1;
+    int isEmpty(Stack * stack) {
+        return stack->top == -1;
     }
-    free(newNode);
-    return 0;
-}
 
-void print(Stack* stack) {
-    Node* current = stack->top;
-    while(current != NULL) {
-        printf(TYPE_FMT" ", current->data);
-        current = current->next;
+    int isFull(Stack * stack) {
+
+        if (stack->top == 99) {
+            return 1;
+        }
+        return 0;
     }
-    printf("\n");
-}
+
+    void print(Stack * stack) {
+        int current = stack->top;
+        while (current != -1) {
+            printf(TYPE_FMT" ", stack->data[current]);
+            current--;
+        }
+        printf("\n");
+    }
