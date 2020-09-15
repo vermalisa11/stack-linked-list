@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "stackconfig.h"
 #include "stack.h"
 
-void push(Stack* stack, int data) {
+void push(Stack* stack, stackType data) {
     Node* newNode = malloc(sizeof(Node));
     if(newNode == NULL) {
         printf("Stack overflow while push()");
@@ -14,24 +15,24 @@ void push(Stack* stack, int data) {
     stack->top = newNode;
 }
 
-int pop(Stack* stack) {
+stackType pop(Stack* stack) {
     if(stack->top == NULL) {
         printf("Stack underflow while pop\n");
         return -1;
     }
     Node* next = stack->top->next;
-    int data = stack->top->data;
+    stackType data = stack->top->data;
     free(stack->top);
     stack->top = next;
     return data;
 }
 
-int peek(Stack* stack) {
+stackType peek(Stack* stack) {
     if(stack->top == NULL) {
         printf("Stack underflow while pop\n");
         return -1;
     }
-    int data = stack->top->data;
+    stackType data = stack->top->data;
     return data;
 }
 
@@ -51,7 +52,7 @@ int isFull(Stack* stack) {
 void print(Stack* stack) {
     Node* current = stack->top;
     while(current != NULL) {
-        printf("%d ", current->data);
+        printf(TYPE_FMT" ", current->data);
         current = current->next;
     }
     printf("\n");
