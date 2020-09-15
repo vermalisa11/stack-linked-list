@@ -1,12 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include "stack.c"
 #include "stackconfig.h"
 #include "stack.h"
 
 void testIntStack() {
-    Stack stack = {NULL};
+    
+    Stack stack = {};
+    init(&stack);
     print(&stack);
     push(&stack, 3);
     print(&stack);
@@ -20,7 +22,9 @@ void testIntStack() {
 }
 
 void testCharStack() {
-    Stack stack = {NULL};
+    
+    Stack stack = {};
+    init(&stack);
     print(&stack);
     push(&stack, 3 + 'a');
     print(&stack);
@@ -36,14 +40,16 @@ void testCharStack() {
 void problemTwoCheckPalindrome() {
     char *string = "madam";
     int length = strlen(string);
-
-    Stack leftStack = {NULL};
+    
+    Stack leftStack = {};
+    init(&leftStack);
     int halfLength = length/2;
     for(int i=0; i<halfLength; ++i) {
         push(&leftStack, string[i]);
     }
-
-    Stack rightStack = {NULL};
+   
+    Stack rightStack = {};
+    init(&rightStack);
     for(int i=0; i<halfLength; ++i) {
         push(&rightStack, string[length-i-1]);
     }
@@ -64,10 +70,11 @@ void problemTwoCheckPalindrome() {
 }
 
 void problemThreeSort() {
-    int MAX = 255;
-    Stack counts[MAX];
-    for(int i=0; i<MAX; ++i) {
-        counts[i].top = NULL;
+    int max = 255;
+    
+    Stack counts[max];
+    for(int i=0; i<max; ++i) {
+        counts[i].top = -1;
     }
     char *string = "bcfda";
     int length = strlen(string);
@@ -76,7 +83,7 @@ void problemThreeSort() {
         push(&counts[ch], ch);
     }
     char sorted[length+1];
-    for(int i=0, j=0; i<MAX; ++i) {
+    for(int i=0, j=0; i<max; ++i) {
         while(!isEmpty(&counts[i])) {
             sorted[j++] = pop(&counts[i]);
         }
