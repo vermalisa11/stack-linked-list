@@ -6,9 +6,10 @@
             "command": "/usr/bin/gcc-7",
             "args": [
                 "-g",
-                "${file}",
+                // "${file}",
+                "${fileDirname}/**.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/main"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
