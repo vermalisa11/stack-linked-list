@@ -1,7 +1,8 @@
 #include "stackconfig.h"
+#define MAX 100
 
 typedef struct Stack Stack;
-typedef struct Node Node;
+//typedef struct Node Node;
 
 #ifdef INT_STACK
 typedef int stackType;
@@ -11,14 +12,15 @@ typedef char stackType;
 #define TYPE_FMT "%c"
 #endif
 
-struct Node {
-    stackType data;
-    Node* next;
+    //struct Node {
+      //  stackType data;
+        //Node* next;
+    //};
+struct Stack {
+    stackType data[MAX];
+    int top;
 };
 
-struct Stack {
-    Node* top;
-};
 
 void push(Stack* stack, stackType data);
 stackType pop(Stack* stack);
