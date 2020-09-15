@@ -58,12 +58,28 @@ int isFull(Stack* stack) {
     return 0;
 }
 
+void print(Stack* stack) {
+    Node* current = stack->top;
+    while(current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+}
+
 int main() {
     Stack stack = {NULL};
+    print(&stack);
     push(&stack, 3);
+    print(&stack);
+    // /*
     push(&stack, 4);
+    print(&stack);
     push(&stack, 5);
+    print(&stack);
     pop(&stack);
+    print(&stack);
     printf("%d\n", peek(&stack));
+    // */
     return 0;
 }
